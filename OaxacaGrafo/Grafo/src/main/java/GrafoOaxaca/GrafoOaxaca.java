@@ -77,7 +77,6 @@ public class GrafoOaxaca {
         grafo.conectarVertices("Santa Catarina Juquila", "Santa Cruz Xoxocotlán", 193.0);
         grafo.conectarVertices("Santa Catarina Juquila", "Puerto Escondido", 96.0);
         grafo.conectarVertices("Santa Catarina Juquila", "Santiago Pinotepa Nacional", 137.0);
-        grafo.conectarVertices("Santa Catarina Juquila", "Heroica Ciudad de Ejutla de Crespo", 60.0);
 
         grafo.conectarVertices("Heroica Ciudad de Ejutla de Crespo", "Putla Villa de Guerrero", 139.0);
         grafo.conectarVertices("Santiago Pinotepa Nacional", "Puerto Escondido", 139.0);
