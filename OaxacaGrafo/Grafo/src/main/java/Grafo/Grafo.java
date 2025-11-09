@@ -41,6 +41,12 @@ public class Grafo {
         v2.agregarArista(aristaInversa);
     }
 
+    public Map<String, Vertice> getVertices() {
+        return vertices;
+    }
+    
+    
+    
     // Mostrar el grafo
     public void mostrarGrafo() {
         for (Vertice v : vertices.values()) {

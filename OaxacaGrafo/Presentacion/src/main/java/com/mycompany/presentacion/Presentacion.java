@@ -3,6 +3,10 @@
  */
 package com.mycompany.presentacion;
 
+import FRMs.FrmMenu;
+import Grafo.Grafo;
+import GrafoOaxaca.GrafoOaxaca;
+
 /**
  *
  * @author Jack Murrieta
@@ -10,6 +14,13 @@ package com.mycompany.presentacion;
 public class Presentacion {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        //obtener Grafo Oaxaca
+        GrafoOaxaca oaxaca = new GrafoOaxaca();
+        Grafo grafo = oaxaca.getGrafo();
+        //abrir menu
+        FrmMenu menu = new FrmMenu();
+        Controlador.Controlador.inicializar(menu, grafo);
+        menu.setVisible(true);
+        
     }
 }
