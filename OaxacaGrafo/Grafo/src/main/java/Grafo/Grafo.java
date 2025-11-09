@@ -44,9 +44,7 @@ public class Grafo {
     public Map<String, Vertice> getVertices() {
         return vertices;
     }
-    
-    
-    
+
     // Mostrar el grafo
     public void mostrarGrafo() {
         for (Vertice v : vertices.values()) {
