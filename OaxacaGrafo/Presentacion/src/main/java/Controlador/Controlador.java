@@ -5,6 +5,7 @@
 package Controlador;
 
 import FRMs.FrmMenu;
+import FRMs.FrmMostrarGrafo;
 import FRMs.FrmTabla;
 import Grafo.Grafo;
 import javax.swing.JFrame;
@@ -14,7 +15,7 @@ import javax.swing.JFrame;
  * @author Jack Murrieta
  */
 public class Controlador {
-
+    
     private static JFrame frameActual;
     private static Grafo grafo;
 
@@ -23,14 +24,18 @@ public class Controlador {
         frameActual = frame;
         grafo = grafoInicial;
     }
-
+    
     public static void mostrarMenu() {
         cambiarVentana(new FrmMenu());
     }
-
+    
     public static void mostrarFrmTabla() {
-
+        
         cambiarVentana(new FrmTabla(grafo));
+    }
+    
+    public static void mostrarFrmMostrarFrafo() {
+        cambiarVentana(new FrmMostrarGrafo(grafo));
     }
 
     // Método genérico para cambiar de ventana
@@ -43,5 +48,5 @@ public class Controlador {
         frameActual.setLocationRelativeTo(null);
         frameActual.setVisible(true);
     }
-
+    
 }
