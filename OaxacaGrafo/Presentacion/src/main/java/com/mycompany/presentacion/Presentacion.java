@@ -21,6 +21,6 @@ public class Presentacion {
         FrmMenu menu = new FrmMenu();
         Controlador.Controlador.inicializar(menu, grafo);
         menu.setVisible(true);
-        
+
     }
 }
