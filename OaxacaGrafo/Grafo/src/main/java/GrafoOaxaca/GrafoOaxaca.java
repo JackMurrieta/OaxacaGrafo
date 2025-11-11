@@ -50,6 +50,18 @@ public class GrafoOaxaca {
         grafo.agregarVertice("Tlaxiaco");
         grafo.agregarVertice("Santiago Juxtlahuaca");
 
+        //Nodos
+        grafo.agregarVertice("Asunción Nochixtlán");
+        grafo.agregarVertice("Río Grande (Piedra Parada)");
+        grafo.agregarVertice("Santa Lucía del Camino");
+        grafo.agregarVertice("San Antonio de la Cal");
+        grafo.agregarVertice("Villa de Zaachila");
+        grafo.agregarVertice("Zimatlán de Álvarez");
+        grafo.agregarVertice("Ocotlán de Morelos");
+        grafo.agregarVertice("Loma Bonita");
+        grafo.agregarVertice("Unión Hidalgo");
+        grafo.agregarVertice("San Pedro Pochutla");
+
         // --- Conexiones (aristas con distancias) ---
         grafo.conectarVertices("Oaxaca de Juárez", "Tuxtepec", 219);
         grafo.conectarVertices("Oaxaca de Juárez", "Huajuapan de León", 171);
@@ -90,6 +102,45 @@ public class GrafoOaxaca {
         //
         grafo.conectarVertices("Santiago Juxtlahuaca", "Huajuapan de León", 100);
         grafo.conectarVertices("San Pedro Tapanatepec", "Domingo Ingenio", 72);
+
+        //CONEXIONES
+        //NOCHIXTLAN
+        grafo.conectarVertices("Asunción Nochixtlán", "Oaxaca de Juárez", 81);
+        grafo.conectarVertices("Asunción Nochixtlán", "Huajuapan de León", 120);
+        grafo.conectarVertices("Asunción Nochixtlán", "Tlaxiaco", 100);
+
+        //RIO GRANDE(PIEDRA PARADA)
+        grafo.conectarVertices("Río Grande (Piedra Parada)", "Puerto Escondido", 40);
+        grafo.conectarVertices("Río Grande (Piedra Parada)", "Santa Catarina Juquila", 70);
+        grafo.conectarVertices("Río Grande (Piedra Parada)", "Santiago Pinotepa Nacional", 95);
+        //SANTA LUCIA DEL CAMINO
+        grafo.conectarVertices("Santa Lucía del Camino", "Oaxaca de Juárez", 4);
+        grafo.conectarVertices("Santa Lucía del Camino", "Santa Cruz Xoxocotlán", 9.2);
+        //SAN ANTONIO DE LA CAL
+        grafo.conectarVertices("San Antonio de la Cal", "Santa Cruz Xoxocotlán", 12);
+        grafo.conectarVertices("San Antonio de la Cal", "Villa de Zaachila", 20);
+        //VILLA DE ZAACHILA
+        grafo.conectarVertices("Villa de Zaachila", "Santa María Atzompa", 15);
+        grafo.conectarVertices("Villa de Zaachila", "Oaxaca de Juárez", 18);
+        //SANTA MARI ATZOMPA
+        grafo.conectarVertices("Santa María Atzompa", "Oaxaca de Juárez", 10);
+        grafo.conectarVertices("Santa María Atzompa", "Santa María Huatulco", 200);
+        //ZIMATLN DE ALVAREZ
+        grafo.conectarVertices("Zimatlán de Álvarez", "Oaxaca de Juárez", 35);
+        grafo.conectarVertices("Zimatlán de Álvarez", "Ocotlán de Morelos", 30);
+        //OCOTLAN DE MORELOS
+        grafo.conectarVertices("Ocotlán de Morelos", "Villa de Zaachila", 40);
+        grafo.conectarVertices("Ocotlán de Morelos", "Miahuatlán de Porfirio Díaz", 60);
+        //LOMA BONITA
+        grafo.conectarVertices("Loma Bonita", "San Juan Bautista Tuxtepec", 45);
+        grafo.conectarVertices("Loma Bonita", "Matías Romero Avendaño", 90);
+        //UNION HIDALGO
+        grafo.conectarVertices("Unión Hidalgo", "Juchitán de Zaragoza", 20);
+        grafo.conectarVertices("Unión Hidalgo", "Salina Cruz", 30);
+        //SAN PEDRO POCHUTLA
+        grafo.conectarVertices("San Pedro Pochutla", "Santa María Huatulco", 22);
+        grafo.conectarVertices("San Pedro Pochutla", "Puerto Escondido", 73);
+
     }
 
 }
