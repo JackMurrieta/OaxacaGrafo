@@ -70,7 +70,9 @@ public class PnlTablaGrafo extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        tabla.setBackground(new java.awt.Color(204, 204, 255));
         tabla.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        tabla.setForeground(new java.awt.Color(18, 44, 74));
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

@@ -7,6 +7,7 @@ package Controlador;
 import FRMs.FrmMenu;
 import FRMs.FrmMostrarGrafo;
 import FRMs.FrmTabla;
+import FRMs.VisualizadorGrafo;
 import Grafo.Grafo;
 import javax.swing.JFrame;
 

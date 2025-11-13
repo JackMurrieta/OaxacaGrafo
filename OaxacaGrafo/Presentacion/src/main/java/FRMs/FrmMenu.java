@@ -189,8 +189,7 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnMostrarGrafoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMostrarGrafoMouseClicked
-        GrafoOaxaca grafoOaxaca = new GrafoOaxaca();
-        VisualizadorGrafo.mostrarVentana(grafoOaxaca.getGrafo());
+        Controlador.Controlador.mostrarFrmMostrarFrafo();
     }//GEN-LAST:event_btnMostrarGrafoMouseClicked
 
     private void btnMostrarGrafoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarGrafoActionPerformed
