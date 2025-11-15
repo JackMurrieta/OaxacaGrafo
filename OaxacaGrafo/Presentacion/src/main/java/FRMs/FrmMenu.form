@@ -167,6 +167,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="BFS"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBFSMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnDFS">
           <Properties>

@@ -92,26 +92,20 @@ public class VisualizadorGrafo extends JPanel {
         Set<String> aristasYaDibujadas = new HashSet<>();
         int contadorAristas = 0;
         int aristasOmitidas = 0;
-
         for (Map.Entry<String, Vertice> entry : grafo.getVertices().entrySet()) {
             String nombreOrigen = entry.getKey();
             Vertice verticeOrigen = entry.getValue();
             Point2D posOrigen = puntitos.get(nombreOrigen);
-
             if (posOrigen == null) {
                 System.out.println("Posición NULL para: " + nombreOrigen);
                 continue;
             }
-
             for (Arista arista : verticeOrigen.getAristas()) {
                 String nombreDestino = arista.getDestino().getNombre();
                 Point2D posDestino = puntitos.get(nombreDestino);
-
                 if (posDestino == null) {
-                    System.out.println("Posición destino NULL para: " + nombreDestino);
                     continue;
                 }
-
                 String clave = crearClaveArista(nombreOrigen, nombreDestino);
                 if (!aristasYaDibujadas.contains(clave)) {
                     dibujarArista(g2d, posOrigen, posDestino, arista.getPeso());
@@ -122,9 +116,6 @@ public class VisualizadorGrafo extends JPanel {
                 }
             }
         }
-
-        System.out.println("Aristas dibujadas: " + contadorAristas);
-        System.out.println("Aristas omitidas (duplicadas): " + aristasOmitidas);
     }
 
     private void dibujarArista(Graphics2D g2d, Point2D pos1, Point2D pos2, double peso) {

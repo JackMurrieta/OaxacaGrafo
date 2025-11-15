@@ -24,7 +24,6 @@ public class GrafoOaxaca {
     }
 
     public void mostrarGrafo() {
-        System.out.println("=== GRAFO OAXACA ===");
         grafo.mostrarGrafo();
     }
 
@@ -60,7 +59,6 @@ public class GrafoOaxaca {
         grafo.agregarVertice("Villa de Zaachila");
         grafo.agregarVertice("Zimatlán de Álvarez");
 
-        // Conexiones (usando los mismos nombres)
         grafo.conectarVertices("Santo Domingo Tehuantepec", "Ciudad Ixtepec", 34);
         grafo.conectarVertices("Ciudad Ixtepec", "Matías Romero Avendaño", 69);
         grafo.conectarVertices("Santo Domingo Tehuantepec", "Oaxaca", 249);
