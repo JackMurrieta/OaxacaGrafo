@@ -34,25 +34,31 @@ public class VisualizadorMST extends JPanel {
     private java.util.List<Kruskal.PasoKruskal> pasos;
     private int pasoActual;
     private Set<String> aristasMST;
+    private Set<String> aristasDescartadas;
+    private boolean fin = false;
     private static final Color COLOR_VERTICE = new Color(18, 44, 74);
     private static final Color COLOR_ARISTA_NORMAL = Color.BLACK;
-    private static final Color COLOR_ARISTA_MST = new Color(0,102,153);
-    private static final Color COLOR_ARISTA_DESCARTADA = new Color(255,102,102);
+    private static final Color COLOR_ARISTA_MST = new Color(0, 102, 153);
+    private static final Color COLOR_ARISTA_DESCARTADA = new Color(255, 102, 102);
+    private static final Color COLOR_ACTUAL = new Color(255, 255, 153);
 
     public VisualizadorMST(Grafo grafo) {
         this.grafo = grafo;
         this.posiciones = new HashMap<>();
         this.pasoActual = 0;
         this.aristasMST = new HashSet<>();
+        this.aristasDescartadas = new HashSet<>();
         setPreferredSize(new Dimension(1000, 624));
         setBackground(new Color(204, 204, 255));
         calcularPosiciones();
         kruskal = new Kruskal(grafo);
         pasos = kruskal.getPasos();
         new javax.swing.Timer(650, e -> {
-            pasoActual++;
+            if (pasoActual < pasos.size()) {
+                pasoActual++;
+            }
             if (pasoActual >= pasos.size()) {
-                pasoActual = pasos.size() - 1;
+                fin = true;
                 ((javax.swing.Timer) e.getSource()).stop();
             }
             repaint();
@@ -101,8 +107,11 @@ public class VisualizadorMST extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        if (pasoActual < pasos.size()) {
-            dibujarGrafo(g2d, pasos.get(pasoActual));
+        if (pasoActual >= 1 && pasoActual <= pasos.size()) {
+            dibujarGrafo(g2d, pasos.get(pasoActual - 1));
+        }
+        if (fin) {
+            mostrarLeyenda(g2d);
         }
     }
 
@@ -114,6 +123,8 @@ public class VisualizadorMST extends JPanel {
         boolean aceptada = paso.getMensaje().contains("AGREGADA");
         if (aceptada) {
             aristasMST.add(claveArista);
+        } else if (paso.getMensaje().contains("DESCARTADA")) {
+            aristasDescartadas.add(claveArista);
         }
         Set<String> aristasDibujadas = new HashSet<>();
         for (Map.Entry<String, Vertice> entry : grafo.getVertices().entrySet()) {
@@ -134,8 +145,9 @@ public class VisualizadorMST extends JPanel {
                     continue;
                 }
                 boolean esMST = aristasMST.contains(clave);
-                boolean esActual = clave.equals(claveArista);
-                dibujarArista(g2d, posOrigen, posDestino, esMST, esActual, aceptada);
+                boolean esDescartada = aristasDescartadas.contains(clave);
+                boolean esActual = !fin && clave.equals(claveArista);
+                dibujarArista(g2d, posOrigen, posDestino, esMST, esDescartada, esActual, aceptada, a.getPeso());
                 aristasDibujadas.add(clave);
             }
         }
@@ -158,22 +170,46 @@ public class VisualizadorMST extends JPanel {
         g2d.drawString(txt, x - w / 2, y - r - 6);
     }
 
-    private void dibujarArista(Graphics2D g2d, Point2D p1, Point2D p2, boolean esMST, boolean esActual, boolean aceptadaActual) {
+    private void dibujarArista(Graphics2D g2d, Point2D p1, Point2D p2, boolean esMST, boolean esDescartada, boolean esActual, boolean aceptadaActual, double peso) {
         int x1 = (int) p1.getX();
         int y1 = (int) p1.getY();
         int x2 = (int) p2.getX();
         int y2 = (int) p2.getY();
         if (esActual) {
-            g2d.setColor(aceptadaActual ? COLOR_ARISTA_MST : COLOR_ARISTA_DESCARTADA);
+            g2d.setColor(aceptadaActual ? COLOR_ARISTA_MST : COLOR_ACTUAL);
             g2d.setStroke(new BasicStroke(3));
         } else if (esMST) {
             g2d.setColor(COLOR_ARISTA_MST);
             g2d.setStroke(new BasicStroke(3));
+        } else if (esDescartada) {
+            g2d.setColor(COLOR_ARISTA_DESCARTADA);
+            g2d.setStroke(new BasicStroke(2));
         } else {
             g2d.setColor(COLOR_ARISTA_NORMAL);
             g2d.setStroke(new BasicStroke(1.5f));
         }
         g2d.drawLine(x1, y1, x2, y2);
+        int mx = (x1 + x2) / 2;
+        int my = (y1 + y2) / 2;
+        String pesoTexto = String.format("%.0f", peso);
+        g2d.setFont(new Font("Arial", Font.BOLD, 7));
+        g2d.setColor(COLOR_VERTICE);
+        int anchoTexto = g2d.getFontMetrics().stringWidth(pesoTexto);
+        g2d.drawString(pesoTexto, mx - anchoTexto / 2, my - 5);
+    }
+
+    private void mostrarLeyenda(Graphics2D g2d) {
+        g2d.setColor(COLOR_VERTICE);
+        g2d.fillRoundRect(10, 10, 320, 110, 15, 15);
+        g2d.setFont(new Font("Arial", Font.BOLD, 16));
+        g2d.setColor(new Color(204, 204, 255));
+        g2d.drawString("Árbol de Expansión Mínima", 25, 35);
+        g2d.setStroke(new BasicStroke(1));
+        g2d.setColor(new Color(204, 204, 255));
+        g2d.drawLine(25, 42, 305, 42);
+        g2d.setFont(new Font("Arial", Font.BOLD, 13));
+        g2d.setColor(new Color(204, 204, 255));
+        g2d.drawString("Fin de algoritmo.", 25, 65);
     }
 
     private String crearClaveArista(String v1, String v2) {
