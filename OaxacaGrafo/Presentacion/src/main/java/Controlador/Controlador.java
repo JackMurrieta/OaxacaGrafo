@@ -6,6 +6,7 @@ package Controlador;
 
 import FRMs.FrmBFS;
 import FRMs.FrmDFS;
+import FRMs.FrmMST;
 import FRMs.FrmMenu;
 import FRMs.FrmMostrarGrafo;
 import FRMs.FrmSeleccion;
@@ -52,6 +53,10 @@ public class Controlador {
 
     public static void mostrarFrmBFS(String ciudadInicial) {
         cambiarVentana(new FrmBFS(grafo, ciudadInicial));
+    }
+    
+    public static void mostrarFrmMST() {
+        cambiarVentana(new FrmMST(grafo));
     }
 
     public static void mostrarError(String mensaje) {

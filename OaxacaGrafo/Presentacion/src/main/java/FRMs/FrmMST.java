@@ -8,26 +8,30 @@ import Grafo.Grafo;
 
 /**
  *
- * @author Jack Murrieta
+ * @author Maryr
  */
-public class FrmMostrarGrafo extends javax.swing.JFrame {
+public class FrmMST extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMostrarGrafo.class.getName());
-
-    Grafo grafo;
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmMST.class.getName());
 
     /**
-     * Creates new form FrmMostrarGrafo
+     * Creates new form FrmMST
      */
-    public FrmMostrarGrafo(Grafo grafo) {
+    public FrmMST(Grafo grafo) {
         initComponents();
-        this.grafo = grafo;
-        VisualizadorGrafo visualizador = new VisualizadorGrafo(grafo);
-        pnlGrafo.setLayout(new java.awt.BorderLayout());
-        pnlGrafo.add(visualizador, java.awt.BorderLayout.CENTER);
-        pnlGrafo.revalidate();
-        pnlGrafo.repaint();
         setLocationRelativeTo(null);
+        cargarVisualizadorKruskal(grafo);
+    }
+
+    private void cargarVisualizadorKruskal(Grafo grafo) {
+        pnlKruskal.removeAll();
+        VisualizadorMST panel = new VisualizadorMST(grafo);
+        panel.setSize(pnlKruskal.getWidth(), pnlKruskal.getHeight());
+        panel.setLocation(0, 0);
+        pnlKruskal.setLayout(new java.awt.BorderLayout());
+        pnlKruskal.add(panel, java.awt.BorderLayout.CENTER);
+        pnlKruskal.revalidate();
+        pnlKruskal.repaint();
     }
 
     /**
@@ -39,22 +43,20 @@ public class FrmMostrarGrafo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlGrafo = new javax.swing.JPanel();
+        pnlKruskal = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pnlGrafo.setPreferredSize(new java.awt.Dimension(1000, 600));
-
-        javax.swing.GroupLayout pnlGrafoLayout = new javax.swing.GroupLayout(pnlGrafo);
-        pnlGrafo.setLayout(pnlGrafoLayout);
-        pnlGrafoLayout.setHorizontalGroup(
-            pnlGrafoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout pnlKruskalLayout = new javax.swing.GroupLayout(pnlKruskal);
+        pnlKruskal.setLayout(pnlKruskalLayout);
+        pnlKruskalLayout.setHorizontalGroup(
+            pnlKruskalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        pnlGrafoLayout.setVerticalGroup(
-            pnlGrafoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+        pnlKruskalLayout.setVerticalGroup(
+            pnlKruskalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 624, Short.MAX_VALUE)
         );
 
         btnRegresar.setBackground(new java.awt.Color(18, 44, 74));
@@ -66,21 +68,25 @@ public class FrmMostrarGrafo extends javax.swing.JFrame {
                 btnRegresarMouseClicked(evt);
             }
         });
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+            .addComponent(pnlKruskal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRegresar)
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addComponent(pnlKruskal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegresar))
         );
 
         pack();
@@ -90,9 +96,12 @@ public class FrmMostrarGrafo extends javax.swing.JFrame {
         Controlador.Controlador.mostrarMenu();
     }//GEN-LAST:event_btnRegresarMouseClicked
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JPanel pnlGrafo;
+    private javax.swing.JPanel pnlKruskal;
     // End of variables declaration//GEN-END:variables
 }

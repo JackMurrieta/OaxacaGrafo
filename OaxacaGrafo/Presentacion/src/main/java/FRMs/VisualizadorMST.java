@@ -4,7 +4,7 @@
  */
 package FRMs;
 
-import Algoritmos.BFS;
+import Algoritmos.Kruskal;
 import Grafo.Arista;
 import Grafo.Grafo;
 import Grafo.Vertice;
@@ -26,33 +26,30 @@ import javax.swing.JPanel;
  *
  * @author Maryr
  */
-public class VisualizadorBFS extends JPanel {
+public class VisualizadorMST extends JPanel {
 
     private Grafo grafo;
     private Map<String, Point2D> posiciones;
-    private BFS bfs;
-    private java.util.List<BFS.PasoBFS> pasos;
+    private Kruskal kruskal;
+    private java.util.List<Kruskal.PasoKruskal> pasos;
     private int pasoActual;
+    private Set<String> aristasMST;
+    private static final Color COLOR_VERTICE = new Color(18, 44, 74);
+    private static final Color COLOR_ARISTA_NORMAL = Color.BLACK;
+    private static final Color COLOR_ARISTA_MST = new Color(0,102,153);
+    private static final Color COLOR_ARISTA_DESCARTADA = new Color(255,102,102);
 
-    private static final Color COLOR_WHITE = Color.WHITE;
-    private static final Color COLOR_GRAY = Color.GRAY;
-    private static final Color COLOR_BLACK = Color.BLACK;
-    private static final Color COLOR_ACTUAL = new Color(18, 44, 74);
-    private static final Color COLOR_VECINO = new Color(255, 220, 130);
-    private static final Color COLOR_ARISTA_NORMAL = COLOR_BLACK;
-    private static final Color COLOR_ARISTA_ARBOL = new Color(0,102,153);
-
-    public VisualizadorBFS(Grafo grafo, String origen) {
+    public VisualizadorMST(Grafo grafo) {
         this.grafo = grafo;
         this.posiciones = new HashMap<>();
         this.pasoActual = 0;
+        this.aristasMST = new HashSet<>();
         setPreferredSize(new Dimension(1000, 624));
         setBackground(new Color(204, 204, 255));
         calcularPosiciones();
-        bfs = new BFS(grafo.getVertices());
-        bfs.ejecutar(origen);
-        pasos = bfs.getPasos();
-        new javax.swing.Timer(600, e -> {
+        kruskal = new Kruskal(grafo);
+        pasos = kruskal.getPasos();
+        new javax.swing.Timer(650, e -> {
             pasoActual++;
             if (pasoActual >= pasos.size()) {
                 pasoActual = pasos.size() - 1;
@@ -104,98 +101,78 @@ public class VisualizadorBFS extends JPanel {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         if (pasoActual < pasos.size()) {
-            BFS.PasoBFS paso = pasos.get(pasoActual);
-            dibujarGrafo(g2d, paso);
+            dibujarGrafo(g2d, pasos.get(pasoActual));
         }
     }
 
-    private void dibujarGrafo(Graphics2D g2d, BFS.PasoBFS paso) {
-        Set<String> aristasArbol = obtenerAristasArbol(paso);
+    private void dibujarGrafo(Graphics2D g2d, Kruskal.PasoKruskal paso) {
+        String claveArista = crearClaveArista(
+                paso.getArista().getOrigen().getNombre(),
+                paso.getArista().getDestino().getNombre()
+        );
+        boolean aceptada = paso.getMensaje().contains("AGREGADA");
+        if (aceptada) {
+            aristasMST.add(claveArista);
+        }
         Set<String> aristasDibujadas = new HashSet<>();
         for (Map.Entry<String, Vertice> entry : grafo.getVertices().entrySet()) {
             String nombreOrigen = entry.getKey();
-            Vertice verticeOrigen = entry.getValue();
+            Vertice vOrigen = entry.getValue();
             Point2D posOrigen = posiciones.get(nombreOrigen);
             if (posOrigen == null) {
                 continue;
             }
-            for (Arista arista : verticeOrigen.getAristas()) {
-                String nombreDestino = arista.getDestino().getNombre();
+            for (Arista a : vOrigen.getAristas()) {
+                String nombreDestino = a.getDestino().getNombre();
                 Point2D posDestino = posiciones.get(nombreDestino);
                 if (posDestino == null) {
                     continue;
                 }
                 String clave = crearClaveArista(nombreOrigen, nombreDestino);
-                if (!aristasDibujadas.contains(clave)) {
-                    boolean esAristaArbol = aristasArbol.contains(clave);
-                    dibujarArista(g2d, posOrigen, posDestino, esAristaArbol);
-                    aristasDibujadas.add(clave);
+                if (aristasDibujadas.contains(clave)) {
+                    continue;
                 }
+                boolean esMST = aristasMST.contains(clave);
+                boolean esActual = clave.equals(claveArista);
+                dibujarArista(g2d, posOrigen, posDestino, esMST, esActual, aceptada);
+                aristasDibujadas.add(clave);
             }
         }
         for (Map.Entry<String, Point2D> entry : posiciones.entrySet()) {
             String nombre = entry.getKey();
             Point2D pos = entry.getValue();
-            BFS.InfoVertice info = paso.estadoVertices.get(nombre);
-            if (info != null) {
-                Color colorNodo = obtenerColorNodo(nombre, paso, info);
-                dibujarNodo(g2d, pos, nombre, colorNodo, info);
-            }
+            dibujarNodo(g2d, pos, nombre);
         }
     }
 
-    private Set<String> obtenerAristasArbol(BFS.PasoBFS paso) {
-        Set<String> aristasArbol = new HashSet<>();
-        for (Map.Entry<String, BFS.InfoVertice> entry : paso.estadoVertices.entrySet()) {
-            String vertice = entry.getKey();
-            BFS.InfoVertice info = entry.getValue();
-            if (info.predecesor != null) {
-                String clave = crearClaveArista(vertice, info.predecesor);
-                aristasArbol.add(clave);
-            }
-        }
-        return aristasArbol;
-    }
-
-    private Color obtenerColorNodo(String nombre, BFS.PasoBFS paso, BFS.InfoVertice info) {
-        if (nombre.equals(paso.verticeActual)) {
-            return COLOR_ACTUAL;
-        } else if (nombre.equals(paso.vecinoExplorado)) {
-            return COLOR_VECINO;
-        } else if (info.color == BFS.Color.WHITE) {
-            return COLOR_WHITE;
-        } else if (info.color == BFS.Color.GRAY) {
-            return COLOR_GRAY;
-        } else {
-            return COLOR_BLACK;
-        }
-    }
-
-    private void dibujarNodo(Graphics2D g2d, Point2D pos, String nombre, Color color, BFS.InfoVertice info) {
+    private void dibujarNodo(Graphics2D g2d, Point2D pos, String nombre) {
         int x = (int) pos.getX();
         int y = (int) pos.getY();
-        int radio = 18;
-        g2d.setColor(color);
-        g2d.fillOval(x - radio, y - radio, radio * 2, radio * 2);
-        g2d.setFont(new Font("Arial", Font.BOLD, 8));
-        String nombreCorto = nombre.length() > 20 ? nombre.substring(0, 17) + "..." : nombre;
-        int anchoTexto = g2d.getFontMetrics().stringWidth(nombreCorto);
-        g2d.drawString(nombreCorto, x - anchoTexto / 2, y - radio - 8);
-        String distStr = info.distancia != Integer.MAX_VALUE ? "d:" + info.distancia : "d:∞";
+        int r = 18;
+        g2d.setColor(COLOR_VERTICE);
+        g2d.fillOval(x - r, y - r, r * 2, r * 2);
         g2d.setFont(new Font("Arial", Font.PLAIN, 7));
-        int anchoInfo = g2d.getFontMetrics().stringWidth(distStr);
-        g2d.drawString(distStr, x - anchoInfo / 2, y + radio + 12);
+        String txt = nombre.length() > 20 ? nombre.substring(0, 17) + "..." : nombre;
+        int w = g2d.getFontMetrics().stringWidth(txt);
+        g2d.drawString(txt, x - w / 2, y - r - 6);
     }
 
-    private void dibujarArista(Graphics2D g2d, Point2D pos1, Point2D pos2, boolean esAristaArbol) {
-        int x1 = (int) pos1.getX();
-        int y1 = (int) pos1.getY();
-        int x2 = (int) pos2.getX();
-        int y2 = (int) pos2.getY();
-        g2d.setColor(esAristaArbol ? COLOR_ARISTA_ARBOL : COLOR_ARISTA_NORMAL);
-        g2d.setStroke(new BasicStroke(esAristaArbol ? 3 : 1.5f));
+    private void dibujarArista(Graphics2D g2d, Point2D p1, Point2D p2, boolean esMST, boolean esActual, boolean aceptadaActual) {
+        int x1 = (int) p1.getX();
+        int y1 = (int) p1.getY();
+        int x2 = (int) p2.getX();
+        int y2 = (int) p2.getY();
+        if (esActual) {
+            g2d.setColor(aceptadaActual ? COLOR_ARISTA_MST : COLOR_ARISTA_DESCARTADA);
+            g2d.setStroke(new BasicStroke(3));
+        } else if (esMST) {
+            g2d.setColor(COLOR_ARISTA_MST);
+            g2d.setStroke(new BasicStroke(3));
+        } else {
+            g2d.setColor(COLOR_ARISTA_NORMAL);
+            g2d.setStroke(new BasicStroke(1.5f));
+        }
         g2d.drawLine(x1, y1, x2, y2);
     }
 

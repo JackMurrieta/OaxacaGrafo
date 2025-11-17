@@ -100,6 +100,11 @@ public class FrmMenu extends javax.swing.JFrame {
         btnAEM.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         btnAEM.setForeground(new java.awt.Color(204, 204, 255));
         btnAEM.setText("Arbol Expansion Minima");
+        btnAEM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAEMMouseClicked(evt);
+            }
+        });
         btnAEM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAEMActionPerformed(evt);
@@ -211,9 +216,12 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBFSMouseClicked
 
     private void btnDFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDFSActionPerformed
-        // TODO add your handling code here:
-        Controlador.Controlador.mostrarFrmSeleccionCiudadSemilla("DFS");
+       Controlador.Controlador.mostrarFrmSeleccionCiudadSemilla("DFS");
     }//GEN-LAST:event_btnDFSActionPerformed
+
+    private void btnAEMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAEMMouseClicked
+        Controlador.Controlador.mostrarFrmMST();
+    }//GEN-LAST:event_btnAEMMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAEM;
