@@ -8,7 +8,7 @@ import FRMs.FrmBFS;
 import FRMs.FrmDFS;
 import FRMs.FrmMenu;
 import FRMs.FrmMostrarGrafo;
-import FRMs.FrmSeleccionBFS;
+import FRMs.FrmSeleccion;
 import FRMs.FrmTabla;
 import FRMs.VisualizadorGrafo;
 import Grafo.Grafo;
@@ -47,7 +47,7 @@ public class Controlador {
     }
 
     public static void mostrarFrmSeleccionCiudadSemilla(String recorrido) {
-        cambiarVentana(new FrmSeleccionBFS(grafo, recorrido));
+        cambiarVentana(new FrmSeleccion(grafo, recorrido));
     }
 
     public static void mostrarFrmBFS(String ciudadInicial) {
@@ -65,7 +65,7 @@ public class Controlador {
 
     // Método genérico para cambiar de ventana
     private static void cambiarVentana(JFrame nuevaVentana) {
-        if (frameActual != null) {
+        if (frameActual != null || !frameActual.isShowing()) {
             //ceerrar frms
             frameActual.dispose();
         }

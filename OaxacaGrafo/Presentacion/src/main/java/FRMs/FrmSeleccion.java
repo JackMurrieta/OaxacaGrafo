@@ -11,16 +11,16 @@ import GrafoOaxaca.GrafoOaxaca;
  *
  * @author Maryr
  */
-public class FrmSeleccionBFS extends javax.swing.JFrame {
+public class FrmSeleccion extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmSeleccionBFS.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(FrmSeleccion.class.getName());
     private Grafo grafo;
     public String recorrido;
 
     /**
      * Creates new form FrmSeleccionBFS
      */
-    public FrmSeleccionBFS(Grafo grafo, String recorrido) {
+    public FrmSeleccion(Grafo grafo, String recorrido) {
         this.grafo = grafo;
         this.recorrido = recorrido;
         initComponents();
@@ -125,9 +125,7 @@ public class FrmSeleccionBFS extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
-        FrmBFS frm = new FrmBFS(new GrafoOaxaca().getGrafo(), cbBoxSemilla.getSelectedItem().toString());
-        frm.setVisible(true);
-        this.dispose();
+
     }//GEN-LAST:event_btnAceptarMouseClicked
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
