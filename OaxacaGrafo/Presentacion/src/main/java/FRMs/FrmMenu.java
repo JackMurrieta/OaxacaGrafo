@@ -125,6 +125,11 @@ public class FrmMenu extends javax.swing.JFrame {
         btnReporte.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(204, 204, 255));
         btnReporte.setText("Reportes Complejidad");
+        btnReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReporteMouseClicked(evt);
+            }
+        });
 
         btnSalir.setBackground(new java.awt.Color(18, 44, 74));
         btnSalir.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
@@ -231,6 +236,10 @@ public class FrmMenu extends javax.swing.JFrame {
     private void btnRCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRCMouseClicked
         Controlador.Controlador.mostrarFrmSeleccionDijkstra();
     }//GEN-LAST:event_btnRCMouseClicked
+
+    private void btnReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseClicked
+        Controlador.Controlador.mostrarFrmReporteComplejidad();
+    }//GEN-LAST:event_btnReporteMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAEM;

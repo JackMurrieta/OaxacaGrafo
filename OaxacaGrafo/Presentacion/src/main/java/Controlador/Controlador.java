@@ -10,6 +10,7 @@ import FRMs.FrmDijkstra;
 import FRMs.FrmMST;
 import FRMs.FrmMenu;
 import FRMs.FrmMostrarGrafo;
+import FRMs.FrmReporteComplejidad;
 import FRMs.FrmSeleccion;
 import FRMs.FrmSeleccionDijkstra;
 import FRMs.FrmTabla;
@@ -67,6 +68,10 @@ public class Controlador {
 
     public static void mostrarFrmDijkstra(String ciudadOrigen, String ciudadDestino) {
         cambiarVentana(new FrmDijkstra(grafo, ciudadOrigen, ciudadDestino));
+    }
+
+    public static void mostrarFrmReporteComplejidad() {
+        cambiarVentana(new FrmReporteComplejidad(grafo));
     }
 
     public static void mostrarError(String mensaje) {
