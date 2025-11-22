@@ -6,10 +6,12 @@ package Controlador;
 
 import FRMs.FrmBFS;
 import FRMs.FrmDFS;
+import FRMs.FrmDijkstra;
 import FRMs.FrmMST;
 import FRMs.FrmMenu;
 import FRMs.FrmMostrarGrafo;
 import FRMs.FrmSeleccion;
+import FRMs.FrmSeleccionDijkstra;
 import FRMs.FrmTabla;
 import FRMs.VisualizadorGrafo;
 import Grafo.Grafo;
@@ -57,6 +59,14 @@ public class Controlador {
     
     public static void mostrarFrmMST() {
         cambiarVentana(new FrmMST(grafo));
+    }
+
+    public static void mostrarFrmSeleccionDijkstra() {
+        cambiarVentana(new FrmSeleccionDijkstra(grafo));
+    }
+
+    public static void mostrarFrmDijkstra(String ciudadOrigen, String ciudadDestino) {
+        cambiarVentana(new FrmDijkstra(grafo, ciudadOrigen, ciudadDestino));
     }
 
     public static void mostrarError(String mensaje) {

@@ -115,6 +115,11 @@ public class FrmMenu extends javax.swing.JFrame {
         btnRC.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
         btnRC.setForeground(new java.awt.Color(204, 204, 255));
         btnRC.setText("Ruta Corta");
+        btnRC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRCMouseClicked(evt);
+            }
+        });
 
         btnReporte.setBackground(new java.awt.Color(18, 44, 74));
         btnReporte.setFont(new java.awt.Font("Monospaced", 1, 14)); // NOI18N
@@ -222,6 +227,10 @@ public class FrmMenu extends javax.swing.JFrame {
     private void btnAEMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAEMMouseClicked
         Controlador.Controlador.mostrarFrmMST();
     }//GEN-LAST:event_btnAEMMouseClicked
+
+    private void btnRCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRCMouseClicked
+        Controlador.Controlador.mostrarFrmSeleccionDijkstra();
+    }//GEN-LAST:event_btnRCMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAEM;
