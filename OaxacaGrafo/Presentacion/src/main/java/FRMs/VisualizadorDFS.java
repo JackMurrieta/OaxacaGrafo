@@ -58,7 +58,7 @@ public class VisualizadorDFS extends JPanel {
         dfs.ejecutar(origen);      // ← DFS!
         pasos = dfs.getPasos();    // ← pasos DFS
 
-        new javax.swing.Timer(600, e -> {
+        new javax.swing.Timer(200, e -> {
             pasoActual++;
             if (pasoActual >= pasos.size()) {
                 pasoActual = pasos.size() - 1;

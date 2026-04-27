@@ -52,7 +52,7 @@ public class VisualizadorBFS extends JPanel {
         bfs = new BFS(grafo.getVertices());
         bfs.ejecutar(origen);
         pasos = bfs.getPasos();
-        new javax.swing.Timer(600, e -> {
+        new javax.swing.Timer(200, e -> {
             pasoActual++;
             if (pasoActual >= pasos.size()) {
                 pasoActual = pasos.size() - 1;

@@ -53,7 +53,7 @@ public class VisualizadorMST extends JPanel {
         calcularPosiciones();
         kruskal = new Kruskal(grafo);
         pasos = kruskal.getPasos();
-        new javax.swing.Timer(650, e -> {
+        new javax.swing.Timer(250, e -> {
             if (pasoActual < pasos.size()) {
                 pasoActual++;
             }

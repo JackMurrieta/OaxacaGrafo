@@ -61,7 +61,7 @@ public class VisualizadorDijkstra extends JPanel {
         calcularPosiciones();
         dijkstra = new Dijkstra(grafo, verticeInicio);
         pasos = dijkstra.getPasos();
-        new javax.swing.Timer(800, e -> {
+        new javax.swing.Timer(250, e -> {
             if (pasoActual < pasos.size()) {
                 pasoActual++;
             }
